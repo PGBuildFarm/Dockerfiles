@@ -3,7 +3,7 @@ FROM fedora:28
 RUN dnf -y update
 
 RUN dnf install -y \
-	git make bison flex gcc ccache wget \
+	git make bison flex gcc ccache gdb wget \
 	perl perl-libwww-perl perl-LWP-Protocol-https python python3 tcl \
 	perl-devel python-devel python3-devel tcl-devel openssl-devel zlib-devel \
 	readline-devel libxml2-devel libxslt-devel \
