@@ -8,7 +8,7 @@ in setting ownership of mounted directories.
 Build the containers in the usual way:
 
 ```
-docker build -t my-buildfarm-client -f Dockerfile.foo
+docker build -t my-buildfarm-client -f Dockerfile.foo context
 ```
 
 The client needs to be attached to some persistent storage, which will contain
