@@ -21,12 +21,6 @@ RUN groupadd -r app -g 1000 && \
 	useradd -u 1000 -r -g app -m -d /app -s /sbin/nologin -c "App user" app && \
     chmod 755 /app
 
-# Hack to allow this library to be dynamically loadable - if not
-# libpqwalreceiver.so won't load :-( it seems like dlopen() isn't
-# honoring LD_LIBRARY_PATH for some reason.
-# If the numbering changes we'll have to rebuild the docker image
-RUN apk add --no-cache --virtual .postgresql-rundeps so:libpq.so.5
-
 # Set the working directory to app home directory
 WORKDIR /app
 
