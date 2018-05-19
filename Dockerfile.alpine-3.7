@@ -1,0 +1,60 @@
+FROM alpine:3.7
+
+RUN apk update
+
+RUN apk add shadow
+
+RUN apk add \
+	bash \
+	git make bison flex gcc g++ ccache wget diffutils \
+	perl perl-libwww perl-lwp-protocol-https  \
+	libxml2-dev libxslt-dev  \
+	openssl-dev zlib-dev readline-dev \
+	perl-ipc-run perl-utils
+
+# to support PLs do:
+RUN apk add perl-dev python python-dev python3 python3-dev tcl tcl-dev
+
+# openldap-dev conflicts with openssl-dev - wonderful!
+
+RUN groupadd -r app -g 1000 && \
+	useradd -u 1000 -r -g app -m -d /app -s /sbin/nologin -c "App user" app && \
+    chmod 755 /app
+
+# Hack to allow this library to be dynamically loadable - if not
+# libpqwalreceiver.so won't load :-( it seems like dlopen() isn't
+# honoring LD_LIBRARY_PATH for some reason.
+# If the numbering changes we'll have to rebuild the docker image
+RUN apk add --no-cache --virtual .postgresql-rundeps so:libpq.so.5
+
+# Set the working directory to app home directory
+WORKDIR /app
+
+# Specify the user to execute all commands below
+USER app
+
+RUN wget https://buildfarm.postgresql.org/downloads/latest-client.tgz
+
+RUN tar -z --strip-components=1 -xf latest-client.tgz
+
+#RUN cp build-farm.conf.sample build-farm.conf
+#RUN sed -i -e /--with-ldap/d build-farm.conf
+
+RUN mkdir buildroot
+
+# we can do this when testing - once we know we have the packages right
+# it's a waste of time
+#RUN ./run_build.pl --test || \
+#  { ls -rt buildroot/HEAD/CHANGEME.lastrun-logs/*.log | grep -v config.log | \
+#    tail -n 1 | xargs cat && exit 1; }
+
+# we'll mount this at run time, as it's the persistent storage we want
+#RUN rm -rf buildroot/*
+
+# RUN ls -l
+
+
+
+
+
+
