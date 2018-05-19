@@ -37,4 +37,14 @@ docker run -v `pwd`/buildroot:/app/buildroot my-buildfarm-client \
 	   ./run_build.pl --config=buildroot/build-farm.conf --test
 ```
 
+On Alpine right now you need to skip the "check" step,
+e.g. add this to the above command
 
+````
+--skip-steps=check
+````
+
+I'm working on a workaround for the problem.
+
+Alpine also has a few other things that don't seem to work, such as nls, ldap,
+and gssapi.
