@@ -1,13 +1,33 @@
 FROM fedora:28
 
-RUN dnf -y update
-
 RUN dnf install -y \
-	git make bison flex gcc ccache gdb wget \
-	perl perl-libwww-perl perl-LWP-Protocol-https python python3 tcl \
-	perl-devel python-devel python3-devel tcl-devel openssl-devel zlib-devel \
-	readline-devel libxml2-devel libxslt-devel \
-	openldap-devel krb5-devel gettext perl-IPC-Run
+	git \
+	make \
+	bison \
+	flex \
+	gcc \
+	ccache \
+	gdb \
+	wget \
+	perl \
+	perl-libwww-perl \
+	perl-LWP-Protocol-https \
+	python \
+	python3 \
+	tcl \
+	perl-devel \
+	python-devel \
+	python3-devel \
+	tcl-devel \
+	openssl-devel \
+	zlib-devel \
+	readline-devel \
+	libxml2-devel \
+	libxslt-devel \
+	openldap-devel \
+	krb5-devel \
+	gettext \
+	perl-IPC-Run
 
 RUN groupadd -r app -g 1000 && \
 	useradd -u 1000 -r -g app -m -d /app -s /sbin/nologin -c "App user" app && \
@@ -37,9 +57,3 @@ RUN mkdir buildroot
 # RUN rm -rf buildroot/*
 
 # RUN ls -l
-
-
-
-
-
-

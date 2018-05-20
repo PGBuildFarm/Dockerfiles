@@ -1,16 +1,35 @@
 FROM ubuntu:18.04
 
-RUN apt-get update
-
-RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade
-
-RUN DEBIAN_FRONTEND=noninteractive \
-	apt-get install -y \
-	git make bison flex gcc ccache gdb wget \
-	perl libwww-perl liblwp-protocol-https-perl python python3 tcl \
-	libperl-dev libpython-dev libpython3-dev tcl-dev libssl-dev zlib1g-dev \
-	libreadline-dev libgss-dev libxml2-dev libxslt1-dev \
-	libldap2-dev libkrb5-dev gettext libipc-run-perl
+RUN apt-get update && \
+	DEBIAN_FRONTEND=noninteractive apt-get install -y \
+	git \
+	make \
+	bison \
+	flex \
+	gcc \
+	ccache \
+	gdb \
+	wget \
+	perl \
+	libwww-perl \
+	liblwp-protocol-https-perl \
+	python \
+	python3 \
+	tcl \
+	libperl-dev \
+	libpython-dev \
+	libpython3-dev \
+	tcl-dev \
+	libssl-dev \
+	zlib1g-dev \
+	libreadline-dev \
+	libgss-dev \
+	libxml2-dev \
+	libxslt1-dev \
+	libldap2-dev \
+	libkrb5-dev \
+	gettext \
+	libipc-run-perl
 
 RUN groupadd -r app -g 1000 && \
 	useradd -u 1000 -r -g app -m -d /app -s /sbin/nologin -c "App user" app && \
@@ -32,15 +51,11 @@ RUN mkdir buildroot
 
 # we can do this when testing - once we know we have the packages right
 # it's a waste of time
-# RUN ./run_build.pl --test || { ls -rt buildroot/HEAD/CHANGEME.lastrun-logs/*.log | grep -v config.log | tail -n 1 | xargs cat && exit 1; }
+# RUN ./run_build.pl --test || \
+# { ls -rt buildroot/HEAD/CHANGEME.lastrun-logs/*.log \
+# | grep -v config.log | tail -n 1 | xargs cat && exit 1; }
 
 # we'll mount this at run time, as it's the persistent storage we want
 # RUN rm -rf buildroot/*
 
 # RUN ls -l
-
-
-
-
-
-

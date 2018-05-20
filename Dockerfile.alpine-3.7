@@ -1,19 +1,36 @@
 FROM alpine:3.7
 
-RUN apk update
-
-RUN apk add shadow
-
-RUN apk add \
+RUN apk update && \
+	apk add \
+	shadow \
 	bash \
-	git make bison flex gcc g++ ccache gdb wget diffutils \
-	perl perl-libwww perl-lwp-protocol-https  \
-	libxml2-dev libxslt-dev  \
-	openssl-dev zlib-dev readline-dev \
-	perl-ipc-run perl-utils
-
-# to support PLs do:
-RUN apk add perl-dev python python-dev python3 python3-dev tcl tcl-dev
+	git \
+	make \
+	bison \
+	flex \
+	gcc \
+	g++ \
+	ccache \
+	gdb \
+	wget \
+	diffutils \
+	perl \
+	perl-libwww \
+	perl-lwp-protocol-https  \
+	libxml2-dev \
+	libxslt-dev  \
+	openssl-dev \
+	zlib-dev \
+	readline-dev \
+	perl-ipc-run \
+	perl-utils \
+	perl-dev \
+	python \
+	python-dev \
+	python3 \
+	python3-dev \
+	tcl \
+	tcl-dev
 
 # openldap-dev conflicts with openssl-dev - wonderful!
 
@@ -46,9 +63,3 @@ RUN mkdir buildroot
 #RUN rm -rf buildroot/*
 
 # RUN ls -l
-
-
-
-
-
-
