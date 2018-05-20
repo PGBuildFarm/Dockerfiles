@@ -1,0 +1,6 @@
+# ignore the repo files and any buildroots
+# if building in this directory context
+/.git
+/README.md
+/Dockerfile*
+/buildroot*
