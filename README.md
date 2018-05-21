@@ -17,7 +17,7 @@ artefacts. You will also need to get a config file. First do this:
 
 ```
 mkdir buildroot
-docker run -v `pwd`/buildroot:/app/buildroot my-buildfarm-client \
+docker run --rm=true -v `pwd`/buildroot:/app/buildroot my-buildfarm-client \
 	   cp buildfarm.conf.sample buildroot/build-farm.conf
 ```
 
@@ -33,7 +33,7 @@ These last two are not required but are recommended.
 Now you can run the client:
 
 ```
-docker run -v `pwd`/buildroot:/app/buildroot my-buildfarm-client \
+docker run --rm=true -v `pwd`/buildroot:/app/buildroot my-buildfarm-client \
 	   ./run_build.pl --config=buildroot/build-farm.conf --test
 ```
 
@@ -53,7 +53,7 @@ If you want to do a `--from-source` build, then mount the source directory
 as well as the buildroot:
 
 ````
-docker run -v `pwd`/buildroot:/app/buildroot \
+docker run --rm=true -v `pwd`/buildroot:/app/buildroot \
 	   -v '/path/to/src:/app/src'
 	   my-buildfarm-client \
 	   ./run_build.pl --config=buildroot/build-farm.conf \
