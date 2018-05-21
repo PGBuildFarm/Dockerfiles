@@ -48,3 +48,14 @@ I'm working on a workaround for the problem.
 
 Alpine also has a few other things that don't seem to work, such as nls, ldap,
 and gssapi.
+
+If you want to do a `--from-source` build, then mount the source directory
+as well as the buildroot:
+
+````
+docker run -v `pwd`/buildroot:/app/buildroot \
+	   -v '/path/to/src:/app/src'
+	   my-buildfarm-client \
+	   ./run_build.pl --config=buildroot/build-farm.conf \
+	   --from-source=/app/src --verbose
+````
