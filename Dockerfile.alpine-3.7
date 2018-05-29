@@ -44,6 +44,8 @@ WORKDIR /app
 # Specify the user to execute all commands below
 USER app
 
+ENV PATH /app:${PATH}
+
 RUN wget https://buildfarm.postgresql.org/downloads/latest-client.tgz
 
 RUN tar -z --strip-components=1 -xf latest-client.tgz
