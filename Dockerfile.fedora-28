@@ -39,6 +39,8 @@ WORKDIR /app
 # Specify the user to execute all commands below
 USER app
 
+COPY --chown=app:app build-fromsource.conf /app
+
 ENV PATH /app:${PATH}
 
 RUN wget https://buildfarm.postgresql.org/downloads/latest-client.tgz
