@@ -8,7 +8,7 @@ in setting ownership of mounted directories.
 Build the containers in the usual way:
 
 ```
-docker build -t my-buildfarm-client -f Dockerfile.foo context
+docker build --rm=true -t my-buildfarm-client -f Dockerfile.foo .
 ```
 
 The client needs to be attached to some persistent storage, which will contain
@@ -34,28 +34,26 @@ Now you can run the client:
 
 ```
 docker run --rm=true -v `pwd`/buildroot:/app/buildroot my-buildfarm-client \
-	   ./run_build.pl --config=buildroot/build-farm.conf --test
+	   run_build.pl --config=buildroot/build-farm.conf --test
 ```
 
-On Alpine right now you need to skip the "check" step,
-e.g. add this to the above command
+On Alpine you need to delay the check step until after the install, so
+add this to the above command
 
 ````
---skip-steps=check
+--delay-check
 ````
-
-I'm working on a workaround for the problem.
 
 Alpine also has a few other things that don't seem to work, such as nls, ldap,
 and gssapi.
 
 If you want to do a `--from-source` build, then mount the source directory
-as well as the buildroot:
+as well as the buildroot. There is a supplied config file for these builds,
+which expects the source to be mounted at `/app/pgsrc`:
 
 ````
 docker run --rm=true -v `pwd`/buildroot:/app/buildroot \
-	   -v '/path/to/src:/app/src'
+	   -v '/path/to/src:/app/pgsrc' \
 	   my-buildfarm-client \
-	   ./run_build.pl --config=buildroot/build-farm.conf \
-	   --from-source=/app/src --verbose
+	   run_build.pl --config=build-fromsource.conf
 ````
