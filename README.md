@@ -18,7 +18,7 @@ artefacts. You will also need to get a config file. First do this:
 ```
 mkdir buildroot
 docker run --rm=true -v `pwd`/buildroot:/app/buildroot my-buildfarm-client \
-	   cp buildfarm.conf.sample buildroot/build-farm.conf
+	   cp build-farm.conf.sample buildroot/build-farm.conf
 ```
 
 Now edit buildroot/build-farm.conf:
