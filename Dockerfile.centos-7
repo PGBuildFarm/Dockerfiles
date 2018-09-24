@@ -1,0 +1,69 @@
+FROM centos:7
+
+RUN yum install -y epel-release
+
+RUN yum install -y \
+	git \
+	make \
+	bison \
+	flex \
+	gcc \
+	ccache \
+	gdb \
+	wget \
+	perl \
+	perl-libwww-perl \
+	perl-LWP-Protocol-https \
+	perl-Digest-SHA \
+	python \
+	python36 \
+	tcl \
+	perl-devel \
+	perl-ExtUtils-MakeMaker \
+	perl-ExtUtils-Embed \
+	python-devel \
+	python36-devel \
+	tcl-devel \
+	openssl-devel \
+	zlib-devel \
+	readline-devel \
+	libxml2-devel \
+	libxslt-devel \
+	openldap-devel \
+	krb5-devel \
+	gettext \
+	perl-IPC-Run \
+	perl-Test-Simple
+
+RUN groupadd -r app -g 1000 && \
+	useradd -u 1000 -r -g app -m -d /app -s /sbin/nologin -c "App user" app && \
+    chmod 755 /app
+
+# Set the working directory to app home directory
+WORKDIR /app
+
+# Specify the user to execute all commands below
+USER app
+
+COPY --chown=app:app build-fromsource.conf /app
+
+ENV PATH /app:${PATH}
+
+RUN wget https://buildfarm.postgresql.org/downloads/latest-client.tgz
+
+RUN tar -z --strip-components=1 -xf latest-client.tgz
+
+# RUN cp build-farm.conf.sample build-farm.conf
+
+RUN mkdir buildroot
+
+# we can do this when testing - once we know we have the packages right
+# it's a waste of time
+# RUN ./run_build.pl --test --config-set config_opts+=--enable-tap-tests || \
+# { ls -rt buildroot/HEAD/CHANGEME.lastrun-logs/*.log | grep -v config.log | \
+#   tail -n 1 | xargs cat && exit 1; }
+
+# we'll mount this at run time, as it's the persistent storage we want
+# RUN rm -rf buildroot/*
+
+# RUN ls -l
