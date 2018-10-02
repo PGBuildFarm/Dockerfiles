@@ -34,8 +34,11 @@ RUN apk update && \
 
 # openldap-dev conflicts with openssl-dev - wonderful!
 
-RUN groupadd -r app -g 1000 && \
-	useradd -u 1000 -r -g app -m -d /app -s /sbin/nologin -c "App user" app && \
+ARG uid
+ARG gid
+RUN groupadd -r app -g ${gid:-1000} && \
+	useradd -u ${uid:-1000} -r -g app -m -d /app -s /sbin/nologin \
+			-c "App user" app && \
     chmod 755 /app
 
 # Set the working directory to app home directory

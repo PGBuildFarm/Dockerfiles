@@ -5,10 +5,12 @@ This is a collection of Dockerfiles to create containers to run the PostgreSQL
 Buildfarm client. They need to run in Docker >= 18.03 due to a prior bug
 in setting ownership of mounted directories.
 
-Build the containers in the usual way:
+Build the containers in the usual way. It's useful to pass in your uid/gid
+so the user writing to the buildroot will have the right privileges:
 
 ```
-docker build --rm=true -t my-buildfarm-client -f Dockerfile.foo .
+docker build --rm=true -t my-buildfarm-client -f Dockerfile.foo \
+	   --build-arg uid=`id -u` --build-arg gid=`id-g` .
 ```
 
 The client needs to be attached to some persistent storage, which will contain
