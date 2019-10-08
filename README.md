@@ -10,7 +10,7 @@ so the user writing to the buildroot will have the right privileges:
 
 ```
 docker build --rm=true -t my-buildfarm-client -f Dockerfile.foo \
-	   --build-arg uid=`id -u` --build-arg gid=`id-g` .
+	   --build-arg uid=`id -u` --build-arg gid=`id -g` .
 ```
 
 The client needs to be attached to some persistent storage, which will contain
