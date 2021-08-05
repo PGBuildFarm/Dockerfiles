@@ -53,9 +53,8 @@ COPY --chown=app:app build-fromsource.conf /app
 
 ENV PATH /app:${PATH}
 
-RUN wget https://buildfarm.postgresql.org/downloads/latest-client.tgz
-
-RUN tar -z --strip-components=1 -xf latest-client.tgz
+RUN git clone https://github.com/PGBuildFarm/client-code.git bf && \
+	mv bf/* bf/.[a-z]* .
 
 # RUN cp build-farm.conf.sample build-farm.conf
 
