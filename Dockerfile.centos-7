@@ -33,7 +33,8 @@ RUN yum install -y \
 	krb5-devel \
 	gettext \
 	perl-IPC-Run \
-	perl-Test-Simple
+	perl-Test-Simple \
+	valgrind
 
 ARG uid
 ARG gid

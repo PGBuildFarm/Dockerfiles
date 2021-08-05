@@ -27,7 +27,8 @@ RUN dnf install -y \
 	openldap-devel \
 	krb5-devel \
 	gettext \
-	perl-IPC-Run
+	perl-IPC-Run \
+	valgrind-devel
 
 ARG uid
 ARG gid

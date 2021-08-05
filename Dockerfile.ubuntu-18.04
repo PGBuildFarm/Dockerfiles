@@ -29,6 +29,8 @@ RUN apt-get update && \
 	libldap2-dev \
 	libkrb5-dev \
 	gettext \
+	libxml2-utils \
+	xsltproc \
 	libipc-run-perl
 
 ARG uid
